@@ -1,11 +1,11 @@
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as bs
 import re #正则表达式
 import urllib.request,urllib.error #定制URL 获取网页数据
 import xlwt #进行excel操作
 import sqlite3 #数据库操作
 
 #httpbin.org 接口测试网站
-def getHTMLData(baseurl, **kwargs):
+def getRawData(baseurl, **kwargs):
     headers = {  # 伪装浏览器
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/80.0.3987.163 Safari/537.36'
@@ -22,7 +22,9 @@ def getHTMLData(baseurl, **kwargs):
             print(e.code)
         if hasattr(e,"reason"):
             print(e.reason)
+    print(response)
     return response
+
 
 def baseurlHandler(baseurl):# url 处理
     urllist =[]
@@ -31,10 +33,13 @@ def baseurlHandler(baseurl):# url 处理
         urllist.append(url)
     return urllist
 
+def cleanRawData(rawdata):
+    bs(rawdata,"json")
+    pass
 
 def getDataList(baseurl):
     datalist=[]
-    urllist = getHTMLData(baseurl)
+    urllist = getRawData(baseurl)
         #解析数据
     return datalist
 
@@ -46,7 +51,7 @@ if __name__ == '__main__':
     baseurl="https://movie.douban.com/top250?start="
 
 
-    print(getHTMLData(baseurl))
+    print(getRawData(baseurl))
     getDataList(baseurl)
     #解析数据
 

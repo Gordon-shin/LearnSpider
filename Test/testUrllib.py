@@ -1,7 +1,8 @@
 import urllib.request, urllib.parse
+import json
 
 
-def getHTMLData(baseurl, **kwargs):
+def getRawData(baseurl, **kwargs):
     headers = {  # 伪装浏览器
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
                       'Chrome/80.0.3987.163 Safari/537.36'
@@ -37,4 +38,7 @@ if __name__ == '__main__':
     #print(baseurlHandler("https://movie.douban.com/top250?start="))
     #getHTMLData("http://baidu.com")
     #getHTMLData("https://www.acfun.cn/v/list110/index.htm")
-    getHTMLData("https://www.acfun.cn/rest/pc-direct/comment/list?sourceId=15751436&sourceType=3&page=1&pivotCommentId=&newPivotCommentId=&t=1590481192124&supportZtEmot=true")
+    #jsondata = json.loads(getRawData(
+    #"https://www.acfun.cn/rest/pc-direct/comment/list?sourceId=15751436&sourceType=3&page=1&pivotCommentId=&newPivotCommentId=&t=1590481192124&supportZtEmot=true"))
+    #print(jsondata.get('totalPage'))
+    print(getRawData("https://www.acfun.cn/a/ac15750283"))
