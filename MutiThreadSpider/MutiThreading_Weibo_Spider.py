@@ -36,6 +36,8 @@ def requests_web_data(url):
     else:
         return r.content
 
+def get_last_timeid_in_DATABASE():
+    pass
 
 class Crawl_Timeids_thread(threading.Thread):
     def __init__(self, thread_id, timeids_queue):  # queue 爬取timeid详细信息的队列
@@ -156,7 +158,9 @@ class Mysql_insert_thread(threading.Thread):
 
         try:
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            sql = "INSERT INTO weibo_hot_everyday_one_hour(title,last_appear_time,start_appear_time,hit_nums,timeid,accurate_time) VALUES" \
+            # sql = "INSERT INTO weibo_hot_everyday_one_hour(title,last_appear_time,start_appear_time,hit_nums,timeid,accurate_time) VALUES" \
+            #       "(%s,%s,%s,%s,%s,%s) "
+            sql = "INSERT INTO weibo_hot_everyday_all_data(title,last_appear_time,start_appear_time,hit_nums,timeid,accurate_time) VALUES" \
                   "(%s,%s,%s,%s,%s,%s) "
             rows = cursor.executemany(sql, onedaydata)
             if rows > 0:
@@ -189,6 +193,7 @@ def main(threadsnum, min):  # 线程数,热搜间隔60为一个小时
     timeids_queue = Queue()  # 初始化timeid队列
     latest_time_id_url = 'https://www.eecso.com/test/weibo/apis/getlatest.php'
     latest_time_id = json.loads(requests_web_data(latest_time_id_url).decode('utf-8'))
+    #for x in range(241, int(latest_time_id[0]) + 1, int(min / 2)):
     for x in range(241, int(latest_time_id[0]) + 1, int(min / 2)):
         timeids_queue.put(x)  # 构造timeid 队列
     # 初始化时间数据采集线程 （流水线1）
@@ -236,4 +241,5 @@ def main(threadsnum, min):  # 线程数,热搜间隔60为一个小时
     print('MYsql成功入库', MYSQL_INSERT_NUM.qsize(), '条热搜数据')
 
 if __name__ == '__main__':
-    main(12, 60)
+    #main(12, 60)
+    main(12, 2)
