@@ -280,6 +280,6 @@ def main(threadsnum, min,database):  # 线程数,热搜间隔60为一个小时
 
 
 if __name__ == '__main__':
-	main(12, 2,'weibo_hot_everyday_all_data') #'weibo_hot_everyday_one_hour'
-	#main(4, 60)
+	#main(12, 2,'weibo_hot_everyday_all_data') #'weibo_hot_everyday_one_hour'
+	main(12, 60,'weibo_hot_everyday_one_hour')
 
