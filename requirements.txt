@@ -4,7 +4,7 @@ chardet==3.0.4
 cycler==0.10.0
 idna==2.9
 jieba==0.42.1
-Jinja2==2.11.2
+Jinja2==2.11.3
 kiwisolver==1.2.0
 MarkupSafe==1.1.1
 matplotlib==3.2.1
